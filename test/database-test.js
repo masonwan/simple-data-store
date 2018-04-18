@@ -137,6 +137,12 @@ describe('database', () => {
     expect(database.count(2)).to.eq(1)
   })
 
+  it('should commit nothing', () => {
+    let isOkay = database.commit()
+
+    expect(isOkay).to.be.false
+  })
+
   it('should ignore rollback if commit first', () => {
     database.set('a', 1)
     database.begin()
