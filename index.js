@@ -1,7 +1,7 @@
 const readline = require('readline')
 const Database = require('./src/database')
 
-console.log(`SET, GET, DELETE, COUNT, BEGIN, ROLLBACK, COMMIT, END`)
+console.log(`Available commands: SET, GET, DELETE, COUNT, BEGIN, ROLLBACK, COMMIT, END`)
 
 let rl = readline.createInterface({
   input: process.stdin,
@@ -19,22 +19,22 @@ let commandMap = {
     }
     console.log(`${value}`)
   },
-  delete: function(command, key, value) {
+  delete: function(command, key) {
     database.delete(key)
   },
-  count: function(command, key, value) {
+  count: function(command, key) {
     console.log(database.count(key))
   },
-  begin: function(command, key, value) {
+  begin: function() {
     database.begin()
   },
-  rollback: function(command, key, value) {
+  rollback: function() {
     database.rollback()
   },
-  commit: function(command, key, value) {
+  commit: function() {
     database.commit()
   },
-  end: function(command, key, value) {
+  end: function() {
     rl.close()
     // process.exit(0)
   },
