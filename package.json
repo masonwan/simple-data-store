@@ -1,0 +1,17 @@
+{
+  "name": "box-interview",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Mason Wan <mwan@linkedin.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "debug": "^3.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1"
+  }
+}
