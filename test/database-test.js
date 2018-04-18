@@ -9,6 +9,10 @@ describe('database', () => {
     database = new Database()
   })
 
+  it('should get non-existing key', () => {
+    expect(database.get('non-existing')).to.undefined
+  })
+
   it('should set value', () => {
     database.set('a', 1)
 
@@ -101,6 +105,24 @@ describe('database', () => {
     expect(database.count(2)).to.eq(1)
   })
 
+  it('should rollback a serial of delete and set', () => {
+    database.set('a', 1)
+    database.set('a', 2)
+    database.begin()
+    {
+      database.set('a', 3)
+      database.set('a', 4)
+      database.delete('a')
+      database.delete('a')
+      database.set('a', 5)
+    }
+    database.rollback()
+
+    expect(database.get('a')).to.eq(2)
+    expect(database.count(1)).to.eq(0)
+    expect(database.count(2)).to.eq(1)
+  })
+
   it('should commit', () => {
     database.set('a', 1)
     database.begin()
@@ -129,8 +151,9 @@ describe('database', () => {
     }
     database.rollback()
 
-    expect(database.get('a')).to.eq(2)
-    expect(database.count(1)).to.eq(0)
-    expect(database.count(2)).to.eq(1)
+    expect(database.get('a')).to.eq(1)
+    expect(database.count(1)).to.eq(1)
+    expect(database.count(2)).to.eq(0)
+    expect(database.count(3)).to.eq(0)
   })
 })
