@@ -5,6 +5,7 @@
   "author": "Mason Wan <mwan@linkedin.com>",
   "license": "MIT",
   "scripts": {
+    "test": "nyc mocha",
     "start": "node index.js"
   },
   "dependencies": {
@@ -12,6 +13,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "mocha": "^5.1.1"
+    "mocha": "^5.1.1",
+    "nyc": "^11.7.1"
   }
 }
