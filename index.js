@@ -29,10 +29,14 @@ let commandMap = {
     database.begin()
   },
   rollback: function() {
-    database.rollback()
+    if (!database.rollback()) {
+      console.log(`NO TRANSACTION`)
+    }
   },
   commit: function() {
-    database.commit()
+    if (!database.commit()) {
+      console.log(`NO TRANSACTION`)
+    }
   },
   end: function() {
     rl.close()

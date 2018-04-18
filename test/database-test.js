@@ -137,7 +137,7 @@ describe('database', () => {
     expect(database.count(2)).to.eq(1)
   })
 
-  it('should commit and rollback', () => {
+  it('should ignore rollback if commit first', () => {
     database.set('a', 1)
     database.begin()
     {
@@ -149,11 +149,12 @@ describe('database', () => {
       }
       database.commit()
     }
-    database.rollback()
+    let isOkay = database.rollback()
 
-    expect(database.get('a')).to.eq(1)
-    expect(database.count(1)).to.eq(1)
+    expect(isOkay).to.be.false
+    expect(database.get('a')).to.eq(3)
+    expect(database.count(1)).to.eq(0)
     expect(database.count(2)).to.eq(0)
-    expect(database.count(3)).to.eq(0)
+    expect(database.count(3)).to.eq(1)
   })
 })

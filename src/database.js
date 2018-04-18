@@ -108,7 +108,7 @@ module.exports = class Database {
   rollback() {
     if (!this.records) {
       debug(`Ignored since it has no records`)
-      return
+      return false
     }
 
     let records = this.records
@@ -122,12 +122,22 @@ module.exports = class Database {
     debug(`records is reset to ${JSON.stringify(this.records, null, 2)}`)
 
     this.dump()
+
+    return true
   }
 
   commit() {
+    if (!this.records) {
+      return false
+    }
+
     this.records = null
-    this.records = this.recordsList.pop()
+    // For one-by-one commit
+    // this.records = this.recordsList.pop()
+    this.recordsList.length = 0
 
     this.dump()
+
+    return true
   }
 }
