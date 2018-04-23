@@ -1,5 +1,6 @@
 {
-  "name": "box-interview",
+  "name": "data-store",
+  "description": "A simple in-memory data store with CLI access",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Mason Wan <mwan@linkedin.com>",
